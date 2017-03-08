@@ -8,9 +8,8 @@ import App from '../common/components/App.jsx';
 
 const rootEl = document.getElementById('root');
 const render = Component => ReactDOM.render(
-< Component />,
-
-rootEl);
+    <Component/>, rootEl);
+    
 render(App);
 if (module.hot) 
     module.hot.accept('../common/components/App', () => {

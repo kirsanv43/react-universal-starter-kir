@@ -42,7 +42,7 @@ devExpressServer.use(require('webpack-dev-middleware')(compiler, {
   headers: {
     'Access-Control-Allow-Origin': '*'
   },
-  public:'0.0.0.0:9081',
+  public:'localhost:3000',
  //inline: true,
     hot: true,
   //   quiet: false,
