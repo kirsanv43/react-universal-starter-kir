@@ -7,8 +7,8 @@ const React = require('react')
 const webpack = require('webpack')
 const devConfig = require('../webpack.config')
 const ReactDOMServer = require('react-dom/server')
-const App = require('../common/components/App');
-const template = require('../common/template');
+import App from '../common/components/App';//const App = require('../common/components/App');
+import template  from './template';
 const devServer = require('webpack-dev-server');
 var express = require('express');
 var http = require('http');
@@ -39,29 +39,11 @@ const compiler = webpack(devConfig);
 
 devExpressServer.use(require('webpack-dev-middleware')(compiler, {
   publicPath: devConfig.output.publicPath,
-  headers: {
-    'Access-Control-Allow-Origin': '*'
-  },
-  public:'localhost:3000',
- //inline: true,
-    hot: true,
-  //   quiet: false,
-  //   noInfo: true,
-   stats: {
-  //   assets: false,
-      colors: true,
-  //   version: false,
-  //   hash: false,
-  //   timings: false,
-  //   chunks: false,
-  //   chunkModules: false
-   }
+   
 }));
 
 devExpressServer.use(require('webpack-hot-middleware')(compiler, {
-  log: console.log,
-  path: '/__webpack_hmr',
-  heartbeat: 10 * 1000
+ 
 })); 
   
 
