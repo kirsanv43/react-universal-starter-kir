@@ -5,7 +5,16 @@ module.exports = {
     devtool: 'cheap-module-eval-source-map',
     entry: {
         entry: [
-            'webpack-hot-middleware/client',
+             'react-hot-loader/patch',
+    // activate HMR for React
+
+    'webpack-dev-server/client?http://' + require("ip").address() + ':3000',
+    // bundle the client for webpack-dev-server
+    // and connect to the provided endpoint
+
+    'webpack/hot/only-dev-server',
+    // bundle the client for hot reloading
+    // only- means to only hot reload for successful updates
             './common/index.js'
         ]
     },
@@ -17,7 +26,22 @@ module.exports = {
     module: {
         rules: [{
                 test: /\.js$/,
-                use: ['react-hot-loader', 'babel-loader'],
+                use: ['react-hot-loader/webpack', {
+                    loader: 'babel-loader',
+                    query: {
+                        babelrc: false,
+                        presets: [
+                            ["es2015", {
+                                "modules": false
+                            }],
+                            "stage-2",
+                            "react"
+                        ],
+                        plugins: [
+                            "react-hot-loader/babel",
+                        ]
+                    }
+                },],
                 exclude: /node_modules/,
             },
             {
@@ -60,7 +84,18 @@ module.exports = {
     ],
     resolve: {
         extensions: ['.js', '.jsx', '.json']
-    }
+    },
+
+  devServer: {
+    host: require("ip").address(),
+    port: 3000,
+
+    historyApiFallback: true,
+    // respond to 404s with index.html
+
+    hot: true,
+    // enable HMR on the server
+  },
 }
 
 /*
