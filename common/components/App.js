@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 
-export default class App extends Component {
+  class App extends Component {
   render() {
     return (
       <div>
-        <h1>Hello fefef</h1>
+        <h1>Hello 444</h1>
       </div>
     );
   }
 }
+
+module.exports = App; 

@@ -1,32 +1,26 @@
-module.exports = ({ body, title ,assetsByChunkName}) => {
-  return `
-    <!DOCTYPE html>
-    <html>
+const React = require('react')
+
+class HtmlLayout extends React.Component {
+ render() {
+return (
+    <html lang='en'>
       <head>
-        <title>${title}</title> 
-        
+        <meta charSet='utf-8'/>
+        <meta name='viewport' content='width=device-width, initial-scale=1'/>
+        <title>{this.props.title}</title> 
       </head>
-      
       <body>
-        <div id="root">${body}</div>
+        {/* insert the content as a string so that it can be rendered separate with its own checksum for proper server-side rendering */}
+        <div key={Math.random()} id='root'
+          dangerouslySetInnerHTML={{
+          __html: this.props.content
+        }}>
+        </div>
+        <script src='/static/bundle.js'></script>
       </body>
-     
-      <script src="/static/bundle.js"></script>
     </html>
-  `;
-};
-
-/*
- ${
-            assetsByChunkName && assetsByChunkName.main && assetsByChunkName.main
-            .filter(path => path.endsWith('.css'))
-            .map(path => `<link rel="stylesheet" href="${path}" />`)
-        }
-
-
- ${
-            assetsByChunkName && assetsByChunkName.main && assetsByChunkName.main
-            .filter(path => path.endsWith('.js'))
-            .map(path => `<script src="${path}" />`)
-        }
-*/
+  )
+ }
+  
+}
+export default HtmlLayout;

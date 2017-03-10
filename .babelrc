@@ -1,5 +1,6 @@
 {
     "presets": [
        "es2015", "stage-0", "react"
-    ]
+    ],
+    "plugins": ["transform-react-display-name", "add-module-exports"]
 }

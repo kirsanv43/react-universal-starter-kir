@@ -5,7 +5,6 @@ import App from './components/App';
 
 const rootEl = document.getElementById('root');
 const render = Component => {
-    console.log(<Component/>);
     return ReactDOM.render(
         <Component/> , rootEl);
 }

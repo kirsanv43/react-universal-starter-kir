@@ -9,6 +9,9 @@
     "dev2": "webpack-dev-server --public=localhost:3000 --hot"
   },
   "dependencies": {
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-react-display-name": "^2.0.0",
+    "babel-plugin-transform-react-display-name": "^6.23.0",
     "debug": "^2.6.1",
     "file-loader": "^0.10.1",
     "html-webpack-plugin": "^2.28.0",
