@@ -11,7 +11,7 @@ module.exports = ({ body, title }) => {
         <div id="root">${body}</div>
       </body>
      
-      <script src="/static/bundle.js"></script>
+      <script src="http://localhost:3003/static/bundle.js"></script>
     </html>
   `;
 };
