@@ -5,45 +5,102 @@ const webpack = require('webpack')
 const devConfig = require('../webpack.config')
 const ReactDOMServer = require('react-dom/server')
 import App from '../common/components/App'; //const App = require('../common/components/App');
-import Template from './template';
-const devServer = require('webpack-dev-server');
+import template from './template';
 var express = require('express');
-var path = require('path');
+var webpackDevServer = require('webpack-dev-server');
 var app = express();
+var expressProxy = require("express-http-proxy");
 var devExpressServer = express();
 const compiler = webpack(devConfig);
 
- 
-devExpressServer.use(require('webpack-dev-middleware')(compiler, {
-  publicPath: devConfig.output.publicPath,
+
+const server = new webpackDevServer(compiler, {
+  publicPath: "/static/",
+  headers: {
+    'Access-Control-Allow-Origin': '*'
+  },
+  host: 'localhost',
+  port: 3003,
+  inline: true,
   hot: true,
-  stats: { 
-    colors: true, 
-    hash: true, 
-    chunks: false,
-    chunkModules: false
+  public: 'localhost:3003',
+  stats: {
+    progress: true,
+    colors: true,
+    noInfo: true
+  },
+  setup: (app) => {
+    app.use(require('webpack-hot-middleware')(compiler, {}));
   }
-}));
+});
+server.listen(3003, "localhost", function (err) {
+  if (err) {
+    return console.error(err);
+  }
+  console.log('Listening at http://localhost:3003/');
+});
 
-devExpressServer.use(require('webpack-hot-middleware')(compiler, {}));
+var httpProxy = require('http-proxy');
 
-devExpressServer.get('/', function (req, res) {
-  const NewApp = require('../common/components/App');
-  const appString = ReactDOMServer.renderToString(<NewApp/>);
+var apiProxy = httpProxy.createProxyServer();
 
-  console.log(appString);
-  const page = '<!DOCTYPE html>' + ReactDOMServer.renderToString(<Template title='Hello World from the server' content={appString}/>)
-
+app.get("/static/*", function(req, res){ 
+  apiProxy.web(req, res, { target: 'http://localhost:3003/' });
+});
+ 
+ 
+app.get('/', function (req, res) {
+  const appString = ReactDOMServer.renderToString( < App / > );
+  const page = template({
+    body: appString,
+    title: 'Hello World from the server'
+  });
   res
     .send(page)
     .status(200);
 });
- 
-devExpressServer.listen(3000, function (err) {
+app.listen(3000, "localhost", function (err) {
   if (err) {
     return console.error(err);
   }
 
   console.log('Listening at http://localhost:3000/');
 });
-  
+
+// devExpressServer.use(require('webpack-dev-middleware')(compiler, {
+//   publicPath: devConfig.output.publicPath,
+//   headers: {
+//     'Access-Control-Allow-Origin': '*'
+//   },
+//   host: 'localhost',
+//   port: 3003,
+//   inline:true,
+//   public:'localhost:3003',
+//   progress: true,
+//   stats: {
+//     progress: true,
+//     colors: true,
+//     noInfo: true
+//   }, 
+// }));
+
+// devExpressServer.use(require('webpack-hot-middleware')(compiler, {}));
+
+// devExpressServer.get('/', function (req, res) {
+
+//   const appString = ReactDOMServer.renderToString( < App / > );
+//   const page = template({
+//     body: appString,
+//     title: 'Hello World from the server'
+//   });
+//   res
+//     .send(page)
+//     .status(200);
+// });
+
+// devExpressServer.listen(3000, "localhost", function (err) {
+//   if (err) {
+//     return console.error(err);
+//   }
+//   console.log('Listening at http://localhost:3000/');
+// });
