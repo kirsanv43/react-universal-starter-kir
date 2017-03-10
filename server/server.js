@@ -5,7 +5,7 @@ const webpack = require('webpack')
 const devConfig = require('../webpack.config')
 const ReactDOMServer = require('react-dom/server')
 import App from '../common/components/App'; //const App = require('../common/components/App');
-import template from './template';
+import Template from './template';
 var express = require('express');
 var webpackDevServer = require('webpack-dev-server');
 var app = express();
@@ -50,11 +50,18 @@ app.get("/static/*", function(req, res){
  
  
 app.get('/', function (req, res) {
-  const appString = ReactDOMServer.renderToString( < App / > );
-  const page = template({
-    body: appString,
-    title: 'Hello World from the server'
-  });
+   const NewApp = require('../common/components/App');
+ 
+  const appString = ReactDOMServer.renderToString(<NewApp/>);
+ 
+
+ 
+  console.log(appString);
+ 
+  const page = '<!DOCTYPE html>' + ReactDOMServer.renderToString(<Template title='Hello World from the server' content={appString}/>)
+ 
+
+ 
   res
     .send(page)
     .status(200);

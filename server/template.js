@@ -18,8 +18,7 @@ return (
         </div>
         <script src='/static/bundle.js'></script>
       </body>
-     
-      <script src="http://localhost:3003/static/bundle.js"></script>
+      
     </html>
   )
  }
