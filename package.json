@@ -6,30 +6,39 @@
   "scripts": {
     "start": "webpack-dev-server",
     "dev": "cross-env BABEL_ENV=development NODE_ENV=development nodemon server/index.js --ignore dist --ignore common --ignore src",
-    "dev2": "webpack-dev-server --public=localhost:3000 --hot"
+    "build-server": "npm run clean && cross-env NODE_ENV=development DEBUG=app:* webpack --colors --display-error-details --config ./configs/webpack.node.js",
+    "clean": "rm -rf ./dist && rm -rf ./static",
+    "watch-server": "webpack --watch --colors --display-error-details --config configs/webpack.node.watch.js",
+    "runServer": "cross-env NODE_ENV=development DEBUG=app:* node --harmony dist/server.js"
   },
   "dependencies": {
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-react-display-name": "^2.0.0",
     "babel-plugin-transform-react-display-name": "^6.23.0",
-    "debug": "^2.6.1",
+    "css-loader": "^0.27.1",
+    "debug-logger": "^0.4.1",
     "express-http-proxy": "^0.11.0",
     "file-loader": "^0.10.1",
     "html-webpack-plugin": "^2.28.0",
     "http-proxy": "^1.16.2",
     "ip": "^1.1.5",
+    "koa": "qw",
+    "koa-proxy": "^0.8.0",
+    "koa-router": "ww",
     "path": "^0.12.7",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-hot-loader": "r",
     "react-snapshot": "^1.0.4",
     "redbox-react": "^1.3.4",
-    "sass-loader": "^6.0.2",
+    "sass-loader": "^6.0.3",
+    "style-loader": "^0.13.2",
     "url-loader": "^0.5.8",
     "webpack": "^2.2.1",
     "webpack-dev-middleware": "1.6.1",
     "webpack-dev-server": "^2.2.0",
-    "webpack-hot-middleware": "2.10.0"
+    "webpack-hot-middleware": "2.10.0",
+    "webpack-node-externals": "^1.5.4"
   },
   "devDependencies": {
     "babel-core": "^6.23.1",
@@ -40,6 +49,7 @@
     "babel-register": "^6.23.0",
     "cross-env": "^3.2.3",
     "express": "^4.15.2",
+    "extract-text-webpack-plugin": "^2.1.0",
     "nodemon": "^1.11.0",
     "react-snapshot": "^1.0.4"
   }

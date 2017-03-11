@@ -36,10 +36,7 @@ module.exports = {
                             }],
                             "stage-2",
                             "react"
-                        ],
-                        plugins: [
-                            "react-hot-loader/babel",
-                        ]
+                        ] 
                     }
                 }, ],
                 exclude: /node_modules/,
@@ -84,33 +81,6 @@ module.exports = {
     ],
     resolve: {
         extensions: ['.js', '.jsx', '.json']
-    },
-
-    devServer: {
-        host: require("ip").address(),
-        port: 3000,
-
-        historyApiFallback: true,
-        // respond to 404s with index.html
-
-        hot: true,
-        // enable HMR on the server
-    },
+    }
 }
-
-/*
-
-query: {
-                    babelrc: false,
-                    presets: [
-                        ["es2015", {
-                            "modules": false
-                        }],
-                        "stage-2",
-                        "react"
-                    ],
-                    plugins: [
-                        //"react-hot-loader/babel",
-                    ]
-                }
-                */
+ 
