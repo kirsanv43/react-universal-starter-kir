@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
     devtool: 'cheap-module-eval-source-map',
@@ -16,11 +17,11 @@ module.exports = {
         // only- means to only hot reload for successful updates
         './common/index.js'
     ],
-    output: {
-        path: path.join(__dirname, 'dist'),
-        filename: 'bundle.js',
-        publicPath: '/static/'
-    },
+    output: { 
+        path: path.join(__dirname, '../dist'), 
+        filename: 'server.js', 
+        publicPath: '/www/' 
+    }, 
     module: {
         rules: [{
                 test: /\.js$/,
@@ -46,14 +47,14 @@ module.exports = {
                 test: /\.(eot|ttf|woff|woff2)(\?.*)?$/,
                 loaders: ['file-loader']
             }, {
-                test: /\.scss$/,
-                use: [{
-                    loader: "style-loader" // creates style nodes from JS strings
-                }, {
-                    loader: "css-loader" // translates CSS into CommonJS
-                }, {
-                    loader: "sass-loader" // compiles Sass to CSS
-                }]
+                test: /\.css$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: [{
+                        loader: "css-loader" // translates CSS into CommonJS
+                    }]
+                })
+
             }
         ]
 
@@ -78,6 +79,15 @@ module.exports = {
         })
     ],
     resolve: {
+        modules: [
+            path.resolve(__dirname, '../node_modules'),
+            'web_modules'
+        ],
+        alias: {
+            src: path.resolve(__dirname, '../src'),
+        },
         extensions: ['.js', '.jsx', '.json']
+
     }
+
 }

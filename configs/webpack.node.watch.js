@@ -19,7 +19,7 @@ config.plugins = [
         __DEV__: true,
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
-    new ExtractTextPlugin('../static/[name].css')
+    new webpack.NoEmitOnErrorsPlugin(),
+    new ExtractTextPlugin(path.resolve(__dirname, '../www/[name].css'))
 ]
 module.exports = config
