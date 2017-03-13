@@ -1,42 +1,44 @@
-import path  from 'path';
-import fs  from 'fs';
-import rimraf  from 'rimraf';
+import path from 'path';
+import fs from 'fs';
+import rimraf from 'rimraf';
 var log = require('debug-logger')('app:clear-temp-folders');
- 
+
 
 function fsExistsSync(myDir) {
-  try {
-    fs.accessSync(myDir);
-    return true;
-  } catch (e) {
-    return false;
-  }
+    try {
+        fs.accessSync(myDir);
+        return true;
+    } catch (e) {
+        return false;
+    }
 }
 
-const clearTempFilders = async () => {
-    const distPath  = path.resolve(__dirname, "../dist");
-    if(fsExistsSync(distPath)){
+const clearTempFilders = async() => {
+    const distPath = path.resolve(__dirname, "../dist");
+    if (fsExistsSync(distPath)) {
         await removeDirectory(distPath);
         log.info('"dist" deleted');
     }
     const wwwPath = path.resolve(__dirname, "../www");
-    if(fsExistsSync(distPath)){
+    if (fsExistsSync(wwwPath)) {
         await removeDirectory(wwwPath);
-    log.info('"www" deleted');
+        log.info('"www" deleted');
     }
-    
-    
+
+
 }
 
 
 const removeDirectory = (path) => {
     return new Promise((success, reject) => {
         try {
-            rimraf(path, function () { success() });
+            rimraf(path, function () {
+                success()
+            });
         } catch (error) {
             reject(error);
         }
-        
+
     })
 }
 

@@ -13,11 +13,7 @@ var staticCache = require('koa-static-cache')
 
 app.use(staticCache(path.join(__dirname, '../../www'), {
   maxAge: 365 * 24 * 60 * 60
-}))
-// app.use(proxy({
-//   host:  'http://localhost:3003/', // proxy alicdn.com... 
-//   match: /^\/static\//        // ...just the /static folder 
-// }));
+})) 
 
 
 router.get('/', function (ctx, next) {

@@ -15,7 +15,6 @@ var nodeConfig = {
     context: __dirname,
 
     entry: [
-        //'webpack/hot/poll',
         '../src/server/index.js'
     ],
     externals: [nodeExternals({
@@ -35,7 +34,7 @@ var nodeConfig = {
             }
         }),
         new webpack.ExtendedAPIPlugin(), // for __webpack_hash__
-        new ExtractTextPlugin(path.resolve(__dirname, '../www/[name].css'))
+        new ExtractTextPlugin('../www/[name].css')
     ]
 };
 module.exports = { ...config,

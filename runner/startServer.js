@@ -8,29 +8,6 @@ import buildProductionServer from './buildProductionServer';
 import startWatchServerSide from './startWatchServerSide';
 import clearTempFilders from './clearTempFilders';
 
-//  webpack(configProd, (err, stats) => {
-//   if (err || stats.hasErrors()) {
-//     log.error(err,stats)
-//   }
-//    log.info("Server build success")
-// });
-
-// const compiler = webpack(configProd);
-
-// const runBuild = () => {
-//     return new Promise((success, reject) => {
-//         compiler.run((err, stats) => {
-//             if (err || stats.hasErrors()) {
-//                 log.error(err, stats);
-//                 reject(err)
-//             }
-
-//             log.info("Server build success")
-//             success()
-//         });
-//     });
-// };
-
 const runBuildAsync = async () => {
     await clearTempFilders();
     await buildProductionServer();

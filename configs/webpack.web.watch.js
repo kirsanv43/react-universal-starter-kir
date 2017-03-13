@@ -18,10 +18,10 @@ config.entry.unshift(
 
         'webpack/hot/only-dev-server' 
 );
-
+config.output.publicPath = `http://localhost:${3003}/`
 config.devServer = {
-  publicPath: "/www/",
-  contentBase: path.join(__dirname, "../www"),
+  publicPath: "http://localhost:3003/",
+  contentBase: "www",
   hot: true,
   inline: false,
   lazy: false,
@@ -44,8 +44,8 @@ var webDevConfig = {
         }),
 		  new webpack.HotModuleReplacementPlugin(),
 
-        new webpack.ExtendedAPIPlugin(), // for __webpack_hash__
-        new ExtractTextPlugin(path.resolve(__dirname, '../www/[name].css'))
+         new webpack.ExtendedAPIPlugin(), // for __webpack_hash__
+        new ExtractTextPlugin('../www/[name].css')
     ]
 };
 module.exports = Object.assign(config, webDevConfig);

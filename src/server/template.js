@@ -16,7 +16,7 @@ return (
           __html: this.props.content
         }}>
         </div>
-        <script src='http://localhost:3003/www/client.js'></script>
+        <script src='http://localhost:3003/client.js'></script>
       </body>
       
     </html>

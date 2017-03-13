@@ -14,7 +14,6 @@ var webConfig = {
     context: __dirname,
 
     entry: [
-        //'webpack/hot/poll',
         '../src/client.js'
     ],
     output: {
@@ -30,8 +29,8 @@ var webConfig = {
                 NODE_ENV: JSON.stringify('production'),
             }
         }),
-        new webpack.ExtendedAPIPlugin(), // for __webpack_hash__
-        new ExtractTextPlugin(path.resolve(__dirname, '../www/[name].css'))
+        //new webpack.ExtendedAPIPlugin(), // for __webpack_hash__
+        new ExtractTextPlugin('../www/[name].css')
     ]
 };
 module.exports = Object.assign(config, webConfig);

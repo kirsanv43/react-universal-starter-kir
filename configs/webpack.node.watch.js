@@ -20,6 +20,6 @@ config.plugins = [
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
-    new ExtractTextPlugin(path.resolve(__dirname, '../www/[name].css'))
+    new ExtractTextPlugin('../www/[name].css')
 ]
 module.exports = config
