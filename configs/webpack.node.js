@@ -15,7 +15,7 @@ var nodeConfig = {
     context: __dirname,
 
     entry: [
-        '../src/server/index.js'
+        '../src/server.js'
     ],
     externals: [nodeExternals({
         whitelist: ['webpack/hot/poll?1000']
@@ -33,7 +33,7 @@ var nodeConfig = {
                 WEBPACK: true
             }
         }),
-        new webpack.ExtendedAPIPlugin(), // for __webpack_hash__
+        //new webpack.ExtendedAPIPlugin(), // for __webpack_hash__
         new ExtractTextPlugin('../www/[name].css')
     ]
 };

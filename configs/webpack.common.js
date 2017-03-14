@@ -17,11 +17,11 @@ module.exports = {
         // only- means to only hot reload for successful updates
         './common/index.js'
     ],
-    output: { 
-        path: path.join(__dirname, '../dist'), 
-        filename: 'server.js', 
-        publicPath: '/www/' 
-    }, 
+    output: {
+        path: path.join(__dirname, '../dist'),
+        filename: 'server.js',
+        publicPath: '/www/'
+    },
     module: {
         rules: [{
                 test: /\.js$/,
@@ -54,11 +54,8 @@ module.exports = {
                         loader: "css-loader" // translates CSS into CommonJS
                     }]
                 })
-
             }
         ]
-
-
     },
     plugins: [
         new webpack.optimize.OccurrenceOrderPlugin(),

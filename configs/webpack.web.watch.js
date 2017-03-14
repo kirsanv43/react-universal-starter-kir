@@ -18,6 +18,7 @@ config.entry.unshift(
 
         'webpack/hot/only-dev-server' 
 );
+
 config.output.publicPath = `http://localhost:${3003}/`
 config.devServer = {
   publicPath: "http://localhost:3003/",
@@ -44,8 +45,8 @@ var webDevConfig = {
         }),
 		  new webpack.HotModuleReplacementPlugin(),
 
-         new webpack.ExtendedAPIPlugin(), // for __webpack_hash__
-        new ExtractTextPlugin('../www/[name].css')
+         //new webpack.ExtendedAPIPlugin(), // for __webpack_hash__
+         new ExtractTextPlugin('../www/[name].css')
     ]
 };
 module.exports = Object.assign(config, webDevConfig);
