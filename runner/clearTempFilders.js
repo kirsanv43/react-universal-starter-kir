@@ -19,10 +19,10 @@ const clearTempFilders = async() => {
         await removeDirectory(distPath);
         log.info('"dist" deleted');
     }
-    const wwwPath = path.resolve(__dirname, "../www");
+    const wwwPath = path.resolve(__dirname, "../public");
     if (fsExistsSync(wwwPath)) {
         await removeDirectory(wwwPath);
-        log.info('"www" deleted');
+        log.info('"public" deleted');
     }
 
 

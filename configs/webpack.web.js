@@ -17,7 +17,7 @@ var webConfig = {
         '../src/client.js'
     ],
     output: {
-		path: path.join(__dirname, '../www'),
+		path: path.join(__dirname, '../public'),
 		filename: 'client.js',
 		chunkFilename: '[name].[id].js'
 	},
@@ -30,7 +30,7 @@ var webConfig = {
             }
         }),
         //new webpack.ExtendedAPIPlugin(), // for __webpack_hash__
-       // new ExtractTextPlugin('../www/[name].css')
+       // new ExtractTextPlugin('../public/[name].css')
     ]
 };
 module.exports = Object.assign(config, webConfig);

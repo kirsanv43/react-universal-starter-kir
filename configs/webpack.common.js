@@ -20,7 +20,7 @@ module.exports = {
     output: {
         path: path.join(__dirname, '../dist'),
         filename: 'server.js',
-        publicPath: '/www/'
+        publicPath: '/public/'
     },
     module: {
         rules: [{

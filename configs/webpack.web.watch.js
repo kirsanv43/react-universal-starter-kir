@@ -56,7 +56,7 @@ config.module.rules =
 config.output.publicPath = `http://localhost:${3003}/`
 config.devServer = {
   publicPath: "http://localhost:3003/",
-  contentBase: "www",
+  contentBase: "public",
   hot: true,
   inline: false,
   lazy: false,
@@ -80,7 +80,7 @@ var webDevConfig = {
 		  new webpack.HotModuleReplacementPlugin(),
 
          //new webpack.ExtendedAPIPlugin(), // for __webpack_hash__
-        //new ExtractTextPlugin('../www/[name].css')
+        //new ExtractTextPlugin('../public/[name].css')
     ]
 };
 module.exports = Object.assign(config, webDevConfig);
