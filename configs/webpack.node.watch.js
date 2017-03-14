@@ -6,6 +6,42 @@ var config = require('./webpack.node.js')
 
 config.cache = true 
 
+// config.module.rules = 
+// [{
+//                 test: /\.js$/,
+//                 use: ['react-hot-loader/webpack', {
+//                     loader: 'babel-loader',
+//                     query: {
+//                         babelrc: false,
+//                         presets: [
+//                             ["es2015", {
+//                                 "modules": false
+//                             }],
+//                             "stage-2",
+//                             "react"
+//                         ]
+//                     }
+//                 }, ],
+//                 exclude: /node_modules/,
+//             },
+//             {
+//                 test: /\.(gif|ico|jpg|jpeg|png|svg|webp)$/,
+//                 loaders: ['file-loader']
+//             }, {
+//                 test: /\.(eot|ttf|woff|woff2)(\?.*)?$/,
+//                 loaders: ['file-loader']
+//             }, {
+//                 test: /\.css$/,
+//                 use: [{
+//                         loader: "style-loader"
+//                     },
+//                     {
+//                         loader: "css-loader?sourceMap&&modules&&importLoaders=1&localIdentName=[name]---[local]---[hash:base64:5]" // translates CSS into CommonJS
+//                     }
+//                 ]
+//             }
+//         ]
+
 config.entry.unshift(
     'webpack/hot/poll?1000'
 )
@@ -20,6 +56,6 @@ config.plugins = [
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
-    new ExtractTextPlugin('../www/[name].css')
+     new ExtractTextPlugin('../www/[name].css')
 ]
 module.exports = config
