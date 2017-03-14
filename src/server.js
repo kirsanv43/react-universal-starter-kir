@@ -14,6 +14,13 @@ var router = require('koa-router')();
 const serve = require('koa-static');
 var staticCache = require('koa-static-cache')
 
+var jsdom = require('jsdom');
+global.document = jsdom.jsdom('<!DOCTYPE html><head></head><html><body></body></html>');
+global.window = document.defaultView;
+global.window.document = global.document;
+// fix
+global.self = global.window;
+
 app.use(staticCache(path.join(__dirname, '../../www'), {
     maxAge: 365 * 24 * 60 * 60
 }))

@@ -18,7 +18,41 @@ config.entry.unshift(
 
         'webpack/hot/only-dev-server' 
 );
-
+config.module.rules = 
+[{
+                test: /\.js$/,
+                use: ['react-hot-loader/webpack', {
+                    loader: 'babel-loader',
+                    query: {
+                        babelrc: false,
+                        presets: [
+                            ["es2015", {
+                                "modules": false
+                            }],
+                            "stage-2",
+                            "react"
+                        ]
+                    }
+                }, ],
+                exclude: /node_modules/,
+            },
+            {
+                test: /\.(gif|ico|jpg|jpeg|png|svg|webp)$/,
+                loaders: ['file-loader']
+            }, {
+                test: /\.(eot|ttf|woff|woff2)(\?.*)?$/,
+                loaders: ['file-loader']
+            }, {
+                test: /\.css$/,
+                use: [{
+                        loader: "style-loader"
+                    },
+                    {
+                        loader: "css-loader?sourceMap&&modules&&importLoaders=1&localIdentName=[name]---[local]---[hash:base64:5]" // translates CSS into CommonJS
+                    }
+                ]
+            }
+        ]
 config.output.publicPath = `http://localhost:${3003}/`
 config.devServer = {
   publicPath: "http://localhost:3003/",
@@ -46,7 +80,7 @@ var webDevConfig = {
 		  new webpack.HotModuleReplacementPlugin(),
 
          //new webpack.ExtendedAPIPlugin(), // for __webpack_hash__
-         new ExtractTextPlugin('../www/[name].css')
+        //new ExtractTextPlugin('../www/[name].css')
     ]
 };
 module.exports = Object.assign(config, webDevConfig);

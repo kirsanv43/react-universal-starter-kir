@@ -34,7 +34,7 @@ var nodeConfig = {
             }
         }),
         //new webpack.ExtendedAPIPlugin(), // for __webpack_hash__
-        new ExtractTextPlugin('../www/[name].css')
+        //new ExtractTextPlugin('../www/[name].css')
     ]
 };
 module.exports = { ...config,
