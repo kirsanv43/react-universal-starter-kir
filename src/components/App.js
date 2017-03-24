@@ -4,8 +4,7 @@ require("./app.css");
   render() {
     return (
       <div>
-        <h1>ggiihh33
-        </h1>
+        {this.props.children}
       </div>
     );
   }

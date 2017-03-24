@@ -24,7 +24,7 @@ module.exports = {
     },
     module: {
         rules: [{
-                test: /\.js$/,
+                test: /\.jsx?$/,
                 use: ['react-hot-loader/webpack', {
                     loader: 'babel-loader',
                     query: {
@@ -82,6 +82,7 @@ module.exports = {
         ],
         alias: {
             src: path.resolve(__dirname, '../src'),
+            components: path.resolve(__dirname, '../src/components'),
         },
         extensions: ['.js', '.jsx', '.json']
 

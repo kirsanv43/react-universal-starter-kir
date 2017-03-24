@@ -16,11 +16,11 @@ config.entry.unshift(
         // bundle the client for webpack-dev-server
         // and connect to the provided endpoint
 
-        'webpack/hot/only-dev-server' 
+        'webpack/hot/only-dev-server'
 );
-config.module.rules = 
+config.module.rules =
 [{
-                test: /\.js$/,
+                test: /\.jsx?$/,
                 use: ['react-hot-loader/webpack', {
                     loader: 'babel-loader',
                     query: {
@@ -68,7 +68,7 @@ config.devServer = {
   port: 3003
 }
 
-var webDevConfig = {   
+var webDevConfig = {
     plugins: [
         new webpack.DefinePlugin({
             __CLIENT__: true, __SERVER__: false, __PRODUCTION__: false, __DEV__: true,

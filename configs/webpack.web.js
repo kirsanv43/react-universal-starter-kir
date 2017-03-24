@@ -30,7 +30,7 @@ var webConfig = {
             }
         }),
         //new webpack.ExtendedAPIPlugin(), // for __webpack_hash__
-       // new ExtractTextPlugin('../public/[name].css')
+        new ExtractTextPlugin('../public/[name].css')
     ]
 };
 module.exports = Object.assign(config, webConfig);
