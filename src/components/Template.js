@@ -2,12 +2,13 @@ const React = require('react')
 
 class HtmlLayout extends React.Component {
  render() {
+   //const initialState = store.getState();
 return (
     <html lang='en'>
       <head>
         <meta charSet='utf-8'/>
         <meta name='viewport' content='width=device-width, initial-scale=1'/>
-        <title>{this.props.title}</title> 
+        <title>{this.props.title}</title>
         <link rel="stylesheet" href="http://localhost:3003/main.css"/>
       </head>
       <body>
@@ -17,12 +18,14 @@ return (
           __html: this.props.content
         }}>
         </div>
+         
         <script src='http://localhost:3003/client.js'></script>
+
       </body>
-      
+
     </html>
   )
  }
-  
+
 }
 export default HtmlLayout;
