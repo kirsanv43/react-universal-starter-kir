@@ -4,8 +4,7 @@ import App from './components/App';
 import {AppContainer} from 'react-hot-loader';
 import { Provider } from 'react-redux';
 let routes = require('./routes').default;
-import renderRoutes from 'src/utils/renderRoutes'
-
+import { renderRoutes } from 'react-router-config';
 import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux';
 const rootEl = document.getElementById('root');
 import createAppStore from './redux/createAppStore';

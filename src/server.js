@@ -10,8 +10,7 @@ import {AppContainer} from 'react-hot-loader';
 var koa = require('koa');
 var proxy = require('koa-proxy');
 var mount = require('koa-mount');
-import renderRoutes from 'src/utils/renderRoutes'
-
+import { renderRoutes } from 'react-router-config';
 const app = new koa();
 const assets = new koa();
 var router = require('koa-router')();
