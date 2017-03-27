@@ -4,11 +4,11 @@ import Home from 'components/Home';
 import App from 'components/App';
 import About from 'components/About';
 import { matchRoutes, renderRoutes } from 'react-router-config'
-
+//
 // const routes = (
 //     <Switch>
-//       <Route exact path="/" component={Home}/>
-//       <Route path="/about" component={About}/>
+//       <Route exact path="/" render={(a,b) => <Home {...a} {...b}/>}  />
+//       <Route path="/about" render={(a,b) => <About {...a} {...b}/>}/>
 //     </Switch>
 // );
 

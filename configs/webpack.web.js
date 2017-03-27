@@ -10,7 +10,7 @@ var nodeExternals = require('webpack-node-externals')
 var config = require('./webpack.common.js');
 
 var webConfig = {
-    target: 'web', 
+    target: 'web',
     context: __dirname,
 
     entry: [
@@ -21,7 +21,7 @@ var webConfig = {
 		filename: 'client.js',
 		chunkFilename: '[name].[id].js'
 	},
- 
+
     plugins: [
         new webpack.DefinePlugin({
             __CLIENT__: true, __SERVER__: false, __PRODUCTION__: true, __DEV__: false,
@@ -29,6 +29,7 @@ var webConfig = {
                 NODE_ENV: JSON.stringify('production'),
             }
         }),
+        new webpack.NamedModulesPlugin(),
         //new webpack.ExtendedAPIPlugin(), // for __webpack_hash__
         new ExtractTextPlugin('../public/[name].css')
     ]

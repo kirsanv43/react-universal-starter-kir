@@ -18,6 +18,7 @@ config.plugins = [
         __PRODUCTION__: false,
         __DEV__: true,
     }),
+    new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
      new ExtractTextPlugin('../public/[name].css')

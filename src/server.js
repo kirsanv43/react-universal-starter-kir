@@ -5,13 +5,12 @@ import Template from './components/Template';
 var log = require('debug-logger')('app:page-server');
 var path = require('path');
 import {Switch, StaticRouter, Route} from 'react-router-dom';
-import routes from './routes';
-import {Provider} from 'react-redux';
+ import {Provider} from 'react-redux';
 import {AppContainer} from 'react-hot-loader';
 var koa = require('koa');
 var proxy = require('koa-proxy');
 var mount = require('koa-mount');
-import {matchRoutes, renderRoutes} from 'react-router-config'
+import renderRoutes from 'src/utils/renderRoutes'
 
 const app = new koa();
 const assets = new koa();
@@ -19,7 +18,8 @@ var router = require('koa-router')();
 const serve = require('koa-static');
 var staticCache = require('koa-static-cache')
 import createAppStore from './redux/createAppStore';
-
+let routes = require('./routes').default;
+console.log(routes);
 app.use(staticCache(path.resolve(__dirname, '../public'), {
     maxAge: 365 * 24 * 60 * 60
 }))
@@ -34,11 +34,13 @@ router.get('/*', function(ctx, next) {
     const appStore = createAppStore(null, initialState);
 
     const appString = ReactDOMServer.renderToString(
+      <AppContainer>
         <Provider store={appStore} key="provider">
             <StaticRouter location={ctx.url} context={context}>
                 {renderRoutes(routes)}
             </StaticRouter>
         </Provider>
+        </AppContainer>
     );
     const page = '<!DOCTYPE html>' + ReactDOMServer.renderToString(<Template title='Hello World from the server' content={appString}/>)
     if (context.url) {
@@ -55,15 +57,17 @@ app.listen(3000, "localhost", function(err) {
         return log.error(err);
     }
     log.log('Listening at http://localhost:3000/');
-}); 
+});
 if (__DEV__) {
     if (module.hot) {
         log.info('Server-side HMR enable')
 
-        module.hot.accept('src/components/App', () => {
-            require('src/components/App')
-            // eslint-disable-line global-require
-        })
+        module.hot.accept("src/routes", () => {
+				      routes = require("src/routes").default;
+			  });
+        // module.hot.accept('src/components/App', () => {
+        //     require('src/components/App')
+        // })
 
         // module.hot.accept('src/routes/index.js', () => {
         //     require('src/routes/index.js') // eslint-disable-line global-require
