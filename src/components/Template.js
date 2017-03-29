@@ -18,7 +18,11 @@ return (
           __html: this.props.content
         }}>
         </div>
-         
+        <script dangerouslySetInnerHTML={{
+          __html: `window.__INITIAL_STATE__ = ${JSON.stringify(this.props.initialState)}`
+        }}>
+
+       </script>
         <script src='http://localhost:3003/client.js'></script>
 
       </body>

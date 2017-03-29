@@ -4,8 +4,11 @@ import App from 'src/components/App';
 import Template from './components/Template';
 var log = require('debug-logger')('app:page-server');
 var path = require('path');
+import createHistory from 'history/createMemoryHistory'
+
+import {matchPath} from 'react-router';
 import {Switch, StaticRouter, Route} from 'react-router-dom';
- import {Provider} from 'react-redux';
+import {Provider} from 'react-redux';
 import {AppContainer} from 'react-hot-loader';
 var koa = require('koa');
 var proxy = require('koa-proxy');
@@ -17,37 +20,58 @@ var router = require('koa-router')();
 const serve = require('koa-static');
 var staticCache = require('koa-static-cache')
 import createAppStore from './redux/createAppStore';
-let routes = require('./routes').default;
-console.log(routes);
+let routes = require('./routes');
+
 app.use(staticCache(path.resolve(__dirname, '../public'), {
     maxAge: 365 * 24 * 60 * 60
 }))
 
 assets.use(serve(path.resolve(__dirname, '../public')));
+const promiseAllWrapper = (promises) => {
+    return new Promise((success, reject) => {
+        Promise.all(promises).then(data => {
+            console.log("success!!!!!!!!!");
+            success(data);
+        }).catch(error => reject(error));
+    });
 
+}
 app.use(mount('/static', assets))
 
-router.get('/*', function(ctx, next) {
+router.get('/*', async(ctx, next) => {
     const context = {};
-    const initialState = {};
-    const appStore = createAppStore(null, initialState);
+    let initialState = {filter: {qwe: "www"}};
+    const appStore = createAppStore(createHistory(), initialState);
+    console.log(appStore);
+    appStore.dispatch({type: "INCREASE"})
+    const promises = []
+
+    routes.some(route => {
+        const match = matchPath(ctx.url, route)
+        if (match && route.preload)
+            promises.push(route.preload(match, appStore.dispatch))
+        return match
+    });
+    const data = await promiseAllWrapper(promises);
 
     const appString = ReactDOMServer.renderToString(
-      <AppContainer>
         <Provider store={appStore} key="provider">
             <StaticRouter location={ctx.url} context={context}>
                 {renderRoutes(routes)}
             </StaticRouter>
         </Provider>
-        </AppContainer>
     );
-    const page = '<!DOCTYPE html>' + ReactDOMServer.renderToString(<Template title='Hello World from the server' content={appString}/>)
+
+    initialState = appStore.getState();
+    console.log("initialState", initialState);
+    const page = '<!DOCTYPE html>' + ReactDOMServer.renderToString(<Template title='Hello World from the server' content={appString} initialState={initialState}/>)
     if (context.url) {
         ctx.status = 302;
     } else {
         ctx.body = page;
         ctx.status = 200;
     }
+
 });
 app.use(router.routes()).use(router.allowedMethods());
 
@@ -62,8 +86,8 @@ if (__DEV__) {
         log.info('Server-side HMR enable')
 
         module.hot.accept("src/routes", () => {
-				      routes = require("src/routes").default;
-			  });
+            routes = require("src/routes");
+        });
         // module.hot.accept('src/components/App', () => {
         //     require('src/components/App')
         // })
