@@ -26,12 +26,12 @@ config.module.rules =
                     query: {
                         babelrc: false,
                         presets: [
-                            ["es2015", {
-                                "modules": false
-                            }],
+                            "es2015",
                             "stage-2",
                             "react"
-                        ]
+                        ],
+                        plugins: ["transform-decorators-legacy", "transform-react-display-name", "add-module-exports"]
+
                     }
                 }, ],
                 exclude: /node_modules/,

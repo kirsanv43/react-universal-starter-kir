@@ -1,1 +1,2 @@
 export const INCREASE = "INCREASE";
+export const USER_LOAD_SUCCESS = "USER_LOAD_SUCCESS";

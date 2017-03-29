@@ -17,7 +17,8 @@ const routes =
 [
   { path: '/',
     exact: true,
-    component: Home
+    component: Home,
+    preload: Home.preload
   },
   { path: '/about',
     component: About

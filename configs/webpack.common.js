@@ -30,12 +30,11 @@ module.exports = {
                     query: {
                         babelrc: false,
                         presets: [
-                            ["es2015", {
-                                "modules": false
-                            }],
+                           "es2015" ,
                             "stage-2",
                             "react"
-                        ]
+                        ],
+                        plugins: ["transform-decorators-legacy", "add-module-exports", "transform-react-display-name"]
                     }
                 }, ],
                 exclude: /node_modules/,
