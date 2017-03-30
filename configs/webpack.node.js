@@ -15,7 +15,7 @@ var nodeConfig = {
     context: __dirname,
 
     entry: [
-        '../src/server.js'
+        '../src/page-server/index.js'
     ],
     externals: [nodeExternals({
         whitelist: ['webpack/hot/poll?1000']

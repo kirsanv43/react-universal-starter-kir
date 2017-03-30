@@ -8,7 +8,7 @@ const composeEnhancers = typeof window === 'object' && window.__REDUX_DEVTOOLS_E
 
 const createAppStore = (history, initialState = false) => {
     const middleware = routerMiddleware(history);
-    const enhancer = composeEnhancers(applyMiddleware(routerMiddleware));
+    const enhancer = composeEnhancers(applyMiddleware(middleware));
     const store = createStore(combineReducers({
         filter,
         router: routerReducer
