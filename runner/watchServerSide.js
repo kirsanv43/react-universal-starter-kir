@@ -2,10 +2,8 @@ import webpack from 'webpack';
 
 const log = require('debug-logger')('app:watch-server-side');
 
-
 const startWatchServerSide = config => {
   const compiler = webpack(config);
-
 
   return new Promise((success, reject) => {
     const watching = compiler.watch(config, (err, stats) => {

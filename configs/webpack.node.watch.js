@@ -9,6 +9,7 @@ config.cache = true;
 config.entry.unshift(
     'webpack/hot/poll?1000'
 )
+ 
 
 config.plugins = [
 
