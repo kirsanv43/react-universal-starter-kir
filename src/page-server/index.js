@@ -1,8 +1,6 @@
-const React = require('react');
-const ReactDOMServer = require('react-dom/server');
+import React from 'react';
+import ReactDOMServer from 'react-dom/server';
 
-import App from '../components/App';
-import Template from '../components/Template';
 const log = require('debug-logger')('app:page-server');
 const path = require('path');
 
@@ -23,6 +21,8 @@ const router = require('koa-router')();
 const serve = require('koa-static');
 const staticCache = require('koa-static-cache');
 
+import App from '../components/App';
+import Template from '../components/Template';
 import createAppStore from '../redux/createAppStore';
 let routes = require('../routes');
 
@@ -34,7 +34,6 @@ assets.use(serve(path.resolve(__dirname, '../public')));
 const promiseAllWrapper = promises => {
   return new Promise((success, reject) => {
     Promise.all(promises).then(data => {
-      console.log('success!!!!!!!!!');
       success(data);
     }).catch(error => reject(error));
   });
@@ -47,7 +46,6 @@ router.get('/*', async (ctx, next) => {
   let initialState = { filter: { qwe: 'www' } };
   const appStore = createAppStore(createHistory(), initialState);
 
-  console.log(appStore);
   appStore.dispatch({ type: 'INCREASE' });
   const promises = [];
 
@@ -69,7 +67,6 @@ router.get('/*', async (ctx, next) => {
     );
 
   initialState = appStore.getState();
-  console.log('initialState', initialState);
   const page = `<!DOCTYPE html>${ReactDOMServer.renderToString(<Template title='Hello World from the server' content={appString} initialState={initialState} />)}`;
 
   if (context.url) {
@@ -87,21 +84,13 @@ app.listen(3000, 'localhost', err => {
   }
   log.log('Listening at http://localhost:3000/');
 });
-if (__DEV__) {
+if (IS_DEV) {
   if (module.hot) {
     log.info('Server-side HMR enable');
 
     module.hot.accept('src/routes', () => {
       routes = require('src/routes');
     });
-        // module.hot.accept('src/components/App', () => {
-        //     require('src/components/App')
-        // })
-
-        // module.hot.accept('src/routes/index.js', () => {
-        //     require('src/routes/index.js') // eslint-disable-line global-require
-        // })
-
     module.hot.addStatusHandler(status => {
       if (status === 'abort') {
         setTimeout(() => process.exit(0), 0);
